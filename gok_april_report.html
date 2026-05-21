@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOK-亚洲 26年4月用户信息反馈</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ============ 整体容器 ============ */
+  .page-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+  }
+
+  /* ============ 顶部导航标签 ============ */
+  .page-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 20px 0 16px;
+  }
+  .page-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #546e7a;
+    text-decoration: none;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid #cbd5e0;
+    font-size: 13px;
+    font-weight: 600;
+    background: #fff;
+    transition: all 0.25s;
+  }
+  .page-nav a:hover, .page-nav a.active {
+    background: #1a3a5c;
+    border-color: #1a3a5c;
+    color: #fff;
+  }
+
+  /* ============ 标题Banner ============ */
+  .title-banner {
+    background: linear-gradient(135deg, #1a3a5c 0%, #0d2440 100%);
+    border-radius: 14px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(13,36,64,0.25);
+    margin-bottom: 16px;
+  }
+  .banner-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 16px;
+    border-radius: 0;
+  }
+  .banner-block:first-child {
+    background: linear-gradient(135deg, #f5a623 0%, #e8961a 100%);
+  }
+  .banner-block:last-child {
+    background: linear-gradient(135deg, #26a69a 0%, #1a8a7f 100%);
+  }
+  .banner-block .lbl {
+    font-size: 11px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+  .banner-block .num {
+    font-size: 56px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin: 4px 0;
+  }
+  .banner-block .sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+  }
+  .banner-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    text-align: center;
+  }
+  .banner-center h1 {
+    font-size: 26px;
+    font-weight: 900;
+    color: #4FC3F7;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 20px rgba(79,195,247,0.35);
+  }
+  .banner-center h1 span { color: #FFD54F; }
+  .banner-center .sub-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ============ 图表行 ============ */
+  .chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .chart-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e8ecf0;
+  }
+  .chart-card h3 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chart-card h3::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: #f5a623;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .chart-wrap { position: relative; height: 180px; }
+
+  /* ============ 主体内容区 ============ */
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .section-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e8ecf0;
+  }
+  .section-card.full-width { grid-column: 1 / -1; }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1a3a5c;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f5a623;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ============ 咨询基本情况 ============ */
+  .stat-highlight {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-left: 4px solid #1565c0;
+  }
+  .stat-highlight .num { color: #d32f2f; font-weight: 900; font-size: 16px; }
+  .stat-highlight p { font-size: 13px; line-height: 1.9; }
+
+  .reason-box {
+    background: #fff8e1;
+    border-radius: 10px;
+    padding: 12px 16px;
+    border: 1px dashed #f9a825;
+    font-size: 13px;
+    line-height: 1.95;
+    margin-top: 8px;
+  }
+  .reason-box strong { color: #e65100; }
+  .reason-box ol { padding-left: 18px; margin-top: 6px; }
+  .reason-box ol li { margin-bottom: 4px; }
+
+  /* ============ 咨询分析 ============ */
+  .analysis-block { margin-bottom: 14px; }
+  .analysis-block:last-child { margin-bottom: 0; }
+  .analysis-block h4 {
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .h4-red { background: #ffebee; color: #c62828; border-left: 3px solid #e53935; }
+  .h4-blue { background: #e3f2fd; color: #1565c0; border-left: 3px solid #1e88e5; }
+  .h4-orange { background: #fff3e0; color: #e65100; border-left: 3px solid #fb8c00; }
+  .h4-purple { background: #f3e5f5; color: #6a1b9a; border-left: 3px solid #8e24aa; }
+
+  .analysis-block ul { padding-left: 16px; }
+  .analysis-block ul li { font-size: 13px; line-height: 1.85; color: #444; margin-bottom: 3px; }
+  .analysis-block ul li strong { color: #c62828; }
+  .analysis-block ul li em { color: #1565c0; font-style: normal; font-weight: 600; }
+
+  .accident-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .accident-item:last-child { border-bottom: none; }
+  .accident-badge {
+    background: #d32f2f;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .accident-item p { font-size: 13px; line-height: 1.75; color: #444; flex: 1; }
+
+  /* ============ 咨询类型对比表 ============ */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .compare-table th {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 8px 10px;
+    text-align: center;
+    font-size: 12px;
+  }
+  .compare-table th:first-child { text-align: left; }
+  .compare-table td { padding: 7px 10px; text-align: center; border-bottom: 1px solid #f0f0f0; }
+  .compare-table td:first-child { text-align: left; font-weight: 600; color: #333; }
+  .compare-table tr:nth-child(even) { background: #f8f9fa; }
+  .compare-table tr:hover { background: #e8f4f8; }
+  .compare-table .up { color: #c62828; font-weight: 700; }
+  .compare-table .down { color: #2e7d32; font-weight: 700; }
+  .compare-table .total-row { background: #e3f2fd !important; font-weight: 700; }
+  .compare-table .total-row td { color: #1a3a5c; }
+
+  /* ============ 饼图区域（优化排版） ============ */
+  .pie-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .pie-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e8ecf0;
+  }
+  .pie-card h3 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pie-card h3::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: #26a69a;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .pie-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .pie-canvas-wrap {
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .pie-legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #444;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .legend-item .leg-label { flex: 1; }
+  .legend-item .leg-count { font-weight: 700; color: #333; }
+  .legend-item .leg-pct { color: #888; font-size: 11px; }
+  .pie-note {
+    background: #f9fbe7;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 10px;
+    border: 1px solid #dce775;
+  }
+  .pie-note .up { color: #c62828; font-weight: 700; }
+  .pie-note .down { color: #2e7d32; font-weight: 700; }
+
+  /* ============ 高频反馈词（白底新样式） ============ */
+  .top10-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e8ecf0;
+    margin-bottom: 14px;
+  }
+  .top10-section h3 {
+    color: #1a3a5c;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f5a623;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .top10-section h3::before {
+    content: '';
+    width: 3px;
+    height: 16px;
+    background: #f5a623;
+    border-radius: 2px;
+  }
+  .top10-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .top10-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 8px 14px;
+    border: 1px solid #e8ecf0;
+  }
+  .top10-rank {
+    font-size: 12px;
+    font-weight: 900;
+    color: #546e7a;
+    min-width: 20px;
+    text-align: center;
+  }
+  .top10-rank.top3 { color: #d32f2f; font-size: 14px; }
+  .top10-word { font-size: 13px; font-weight: 700; color: #333; min-width: 72px; }
+  .top10-bar-wrap { flex: 1; height: 7px; background: #e8ecf0; border-radius: 4px; overflow: hidden; }
+  .top10-bar { height: 100%; border-radius: 4px; }
+  .top10-count { font-size: 12px; color: #888; font-weight: 700; min-width: 36px; text-align: right; }
+
+  /* ============ 分层玩家模块 ============ */
+  .layer-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .layer-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e8ecf0;
+  }
+  .layer-title-tag {
+    font-size: 13px;
+    font-weight: 800;
+    padding: 7px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+  .layer-title-tag.blue { background: linear-gradient(135deg, #1565c0, #1976d2); }
+  .layer-title-tag.purple { background: linear-gradient(135deg, #6a1b9a, #8e24aa); }
+  .layer-meta {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .layer-meta strong { color: #333; }
+  .feedback-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 7px 12px;
+    margin: 4px 0;
+    font-size: 13px;
+  }
+  .feedback-tag .tag-label { color: #333; flex: 1; font-weight: 600; }
+  .feedback-tag .tag-count {
+    background: #1565c0;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .feedback-tag .tag-count.purple { background: #7b1fa2; }
+  .layer-note {
+    background: #f9fbe7;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 10px;
+    border: 1px solid #dce775;
+    color: #444;
+  }
+  .layer-note strong { color: #e65100; }
+  .layer-note.purple-note { background: #f3e5f5; border-color: #ce93d8; }
+  .layer-note.purple-note strong { color: #6a1b9a; }
+
+  /* ============ 分层分析模块 ============ */
+  .deep-analysis-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .deep-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e8ecf0;
+    overflow: hidden;
+  }
+  .deep-card-header {
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    margin: -18px -18px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .deep-card-header.blue { background: linear-gradient(135deg, #1565c0, #0d47a1); border-radius: 12px 12px 0 0; }
+  .deep-card-header.purple { background: linear-gradient(135deg, #6a1b9a, #4a148c); border-radius: 12px 12px 0 0; }
+  .analysis-sub { margin-bottom: 12px; }
+  .analysis-sub:last-child { margin-bottom: 0; }
+  .analysis-sub-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 7px;
+    display: inline-block;
+  }
+  .sub-red { background: #c62828; }
+  .sub-blue { background: #1976d2; }
+  .sub-green { background: #2e7d32; }
+  .sub-orange { background: #e65100; }
+  .sub-purple { background: #7b1fa2; }
+  .analysis-sub p, .analysis-sub li {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #444;
+  }
+  .analysis-sub ul { padding-left: 16px; }
+  .analysis-sub ul li { margin-bottom: 3px; }
+  .quote-box {
+    background: #f8f9fa;
+    border-left: 3px solid #90a4ae;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #666;
+    border-radius: 0 6px 6px 0;
+    margin-top: 8px;
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .quote-box.purple { border-left-color: #7b1fa2; background: #f3e5f5; }
+
+  /* ============ 总结模块（宽松排版） ============ */
+  .summary-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 22px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e8ecf0;
+    margin-bottom: 14px;
+  }
+  .summary-section .section-title { margin-bottom: 18px; }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .summary-item {
+    background: #f8f9fa;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e8ecf0;
+  }
+  .summary-item-header {
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .summary-item-header.red { background: linear-gradient(135deg, #c62828, #b71c1c); }
+  .summary-item-header.orange { background: linear-gradient(135deg, #e65100, #bf360c); }
+  .summary-item-header.green { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
+  .summary-item-body {
+    padding: 14px 16px 16px;
+  }
+  .summary-item-body li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.9;
+    color: #444;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+  }
+  .summary-item-body li:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .trend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e65100;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  .priority-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-right: 4px;
+    flex-shrink: 0;
+  }
+  .p1 { background: #ffebee; color: #c62828; }
+  .p2 { background: #fff3e0; color: #e65100; }
+  .p3 { background: #e8f5e9; color: #2e7d32; }
+  .优先 { background: #ffebee; color: #c62828; }
+  .重要 { background: #fff3e0; color: #e65100; }
+  .建议 { background: #e8f5e9; color: #2e7d32; }
+
+  /* ============ 底部水印 ============ */
+  .footer {
+    text-align: center;
+    padding: 16px 0 8px;
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  /* ============ 辅助 ============ */
+  .bold-red { color: #d32f2f; font-weight: 700; }
+  .bold-blue { color: #1565c0; font-weight: 700; }
+  .bold-green { color: #2e7d32; font-weight: 700; }
+  .bold-orange { color: #e65100; font-weight: 700; }
+
+  /* ============ 响应式 ============ */
+  @media (max-width: 900px) {
+    .chart-row { grid-template-columns: 1fr 1fr; }
+    .main-content { grid-template-columns: 1fr; }
+    .pie-section { grid-template-columns: 1fr; }
+    .top10-grid { grid-template-columns: 1fr; }
+    .layer-row { grid-template-columns: 1fr; }
+    .deep-analysis-row { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: 1fr; }
+    .title-banner { grid-template-columns: 1fr 1fr 1fr; }
+    .banner-center h1 { font-size: 20px; }
+    .banner-block .num { font-size: 42px; }
+  }
+  @media (max-width: 600px) {
+    .title-banner { grid-template-columns: 1fr; }
+    .banner-center { padding: 16px; }
+    .page-nav { gap: 5px; }
+    .page-nav a { padding: 5px 10px; font-size: 12px; }
+    .chart-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- ============ 顶部标签导航 ============ -->
+  <div class="page-nav">
+    <a href="#banner">🏠 概览</a>
+    <a href="#charts">📊 数据图表</a>
+    <a href="#situation">📋 咨询情况</a>
+    <a href="#analysis">🔍 内容分析</a>
+    <a href="#pie">🍰 类型占比</a>
+    <a href="#top10">🏆 高频词</a>
+    <a href="#layer">👥 分层反馈</a>
+    <a href="#summary">📌 总结</a>
+  </div>
+
+  <!-- ============ 标题Banner（圆角三块） ============ -->
+  <div class="title-banner" id="banner">
+    <div class="banner-block">
+      <div class="lbl">4月七鱼日均回复量</div>
+      <div class="num">41</div>
+      <div class="sub">条/日</div>
+    </div>
+    <div class="banner-center">
+      <h1>【GOK-<span>亚洲</span>】<br>26年4月用户信息反馈</h1>
+      <div class="sub-text">数据来源：七鱼 + KKT 客服系统</div>
+    </div>
+    <div class="banner-block">
+      <div class="lbl">4月总咨询量</div>
+      <div class="num">1,237</div>
+      <div class="sub">条</div>
+    </div>
+  </div>
+
+  <!-- ============ 图表行1：近6月 + VIP（VIP图更宽） ============ -->
+  <div class="chart-row" id="charts" style="grid-template-columns: 0.8fr 1.2fr;">
+    <div class="chart-card">
+      <h3>📊 近6月咨询量趋势</h3>
+      <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>👑 VIP分层咨询量分布</h3>
+      <div class="chart-wrap"><canvas id="vipChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ============ 图表行2：日咨询量趋势 ============ -->
+  <div class="chart-row" style="grid-template-columns: 1fr;">
+    <div class="chart-card">
+      <h3>📅 4月日咨询量趋势</h3>
+      <div class="chart-wrap" style="height: 220px;"><canvas id="dailyChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ============ 4月咨询基本情况（单独一行） ============ -->
+  <div class="section-card full-width" id="situation" style="margin-bottom:14px;">
+    <div class="section-title">📋 4月咨询基本情况</div>
+    <div class="stat-highlight">
+      <p>26年4月GOK（七鱼+KKT）总咨询量 <span class="num">1,318</span> 条
+        （七鱼 <span class="num">1,237</span> 条 + KKT <span class="num">81</span> 条），
+        七鱼日均在线咨询量约 <span class="num">41.2</span> 条/日，
+        对比3月咨询量 <span class="bold-red">1,173</span> 条，<strong>环比上升 <span class="bold-red">+145条（+12.4%）</span></strong>。</p>
+    </div>
+    <div class="reason-box">
+      <strong>📌 咨询量变化核心原因：</strong>
+      <ol>
+        <li><strong>版本节点密集</strong>：4月上线【祈灵祭典】大型活动，带动大量活动咨询与BUG反馈（祈灵BUG量达43条）；</li>
+        <li><strong>批量异常事件集中</strong>：本月共发生多起批量异常事件，累计影响量级达<strong>285条以上</strong>，具体包括：<br>
+          &nbsp;&nbsp;▸ 黄金称号系列异常（不会失效/旗帜无法更换/入驻信息未更新）<br>
+          &nbsp;&nbsp;▸ 祈灵祭典邮件奖励未到账（勋章等级奖励丢失）<br>
+          &nbsp;&nbsp;▸ Google Play / Facebook 平台登陆失效（持续全月）<br>
+          &nbsp;&nbsp;▸ 古境征途 / 机关公告显示异常（活动公告有误）<br>
+          &nbsp;&nbsp;▸ 楼兰探秘成就奖励体力消耗数据异常<br>
+          带来大批用户问题反馈；</li>
+        <li><strong>跨服战区调整争议</strong>：合区匹配机制调整引发匹配相关咨询持续走高；</li>
+        <li><strong>4月较3月少1天</strong>（4月30天 vs 3月31天）但总量反超，说明日均活跃度有明显提升。</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ============ 4月咨询内容分析（单独一行 + 修复状态） ============ -->
+  <div class="section-card full-width" id="analysis" style="margin-bottom:14px;">
+    <div class="section-title">🔍 4月咨询内容分析</div>
+
+    <div class="analysis-block">
+      <h4 class="h4-red">⚠️ 一、异常反馈（285条）</h4>
+      <div class="accident-item">
+        <div class="accident-badge">47条</div>
+        <p style="flex:1;"><strong>黄金称号系列异常</strong>：4/3日黄金称号不会失效、4/5日联盟旗帜无法更换为黄金旗帜、荣耀王帐黄金入驻信息未更新。影响范围广，用户集中反馈。</p>
+        <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap;">✅ 已修复</span>
+      </div>
+      <div class="accident-item">
+        <div class="accident-badge">43条</div>
+        <p style="flex:1;"><strong>【祈灵祭典】BUG持续发酵</strong>：4/27日邮件未收到勋章等级奖励（33条），叠加活动期间持续的BUG反馈，为本月最高频异常来源。</p>
+        <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap;">✅ 已修复</span>
+      </div>
+      <div class="accident-item">
+        <div class="accident-badge">42条</div>
+        <p style="flex:1;"><strong>登陆异常</strong>：主要涉及Google Play、Facebook平台登陆失效，持续分布全月，影响稳定。</p>
+        <span style="background:#fff3e0;color:#e65100;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap;">👁 观察中</span>
+      </div>
+      <div class="accident-item">
+        <div class="accident-badge">25条</div>
+        <p style="flex:1;"><strong>4/20日古境征途/机关公告显示异常</strong>：活动公告展示有误，引发玩家困惑。</p>
+        <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap;">✅ 已修复</span>
+      </div>
+      <div class="accident-item">
+        <div class="accident-badge">19条</div>
+        <p style="flex:1;"><strong>楼兰探秘成就异常</strong>：4/3日成就奖励体力消耗数据异常，已记录处理。</p>
+        <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap;">✅ 已修复</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 游戏咨询 & 违规相关（单独一行） ============ -->
+  <div class="section-card full-width" style="margin-bottom:14px;">
+    <div class="section-title">🎮 游戏咨询 &amp; 违规相关</div>
+    <div class="analysis-block">
+      <h4 class="h4-blue">💬 二、游戏咨询（231条）</h4>
+      <ul>
+        <li><em>基础玩法（104条）</em>：联盟玩法（25条）、勇士培养（11条）、后宫（15条）为核心咨询方向；玩家对子系统功能认知度不足，基础引导有待加强。</li>
+        <li><em>活动咨询（78条）</em>：祈灵祭典（21条）、联盟争霸（19条）为主要活动咨询点；冲榜活动（13条）中玩家对奖励机制、参与条件多有不解。</li>
+        <li><em>查询信息（24条）</em>：集中在道具查询，玩家期望更直观的道具获取信息。</li>
+      </ul>
+    </div>
+    <div class="analysis-block">
+      <h4 class="h4-orange">🚨 三、违规相关（205条）</h4>
+      <ul>
+        <li><em>违规举报（178条）</em>：举报发言（77条）、举报小号（62条）、<strong>举报外挂（30条）</strong>为三大主力，外挂问题依然突出。</li>
+        <li><em>违规申诉（27条）</em>：以其他申诉为主，处理诉求集中。</li>
+      </ul>
+    </div>
+    <div class="analysis-block">
+      <h4 class="h4-purple">😤 四、游戏抱怨（187条）</h4>
+      <ul>
+        <li><em>区服匹配（核心）</em>：跨服盟战、冲榜匹配不公平为全月抱怨最高频主题，合区后战力差距悬殊，玩家体验严重受损。</li>
+        <li><em>活动规则</em>：航海夺宝计分方式、诈马宴被霸凌抢座、联盟争霸时间安排（周五中午上班族无法参与）、先祖试炼匹配机制、比武场被多号频繁攻击、远洋荡寇复仇机制不合理等问题突出。</li>
+        <li><em>系统功能</em>：神龙王帐长时间未更新、庭院活动事件频繁触发希望加跳过、荣耀王帐一键领取希望加跳过动画、马粮上限过低、联盟争霸希望增加屏蔽联盟功能等。</li>
+        <li><em>奖励与道具</em>：冲榜奖励碎片不通用，部分玩家培养方向无法受益；先祖试炼排行榜奖励用随机箱而非自选箱。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 咨询类型数据对比（单独一行） ============ -->
+  <div class="section-card full-width" style="margin-bottom:14px;">
+    <div class="section-title">📊 咨询类型数据对比（4月 vs 3月）</div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>咨询类型</th>
+          <th>3月</th>
+          <th>4月</th>
+          <th>变化</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#ffebee;">
+          <td>异常反馈</td>
+          <td>200</td>
+          <td style="font-weight:700;color:#c62828;">285</td>
+          <td><span class="up">↑+85</span></td>
+        </tr>
+        <tr>
+          <td>游戏咨询</td>
+          <td>250</td>
+          <td style="font-weight:700;">231</td>
+          <td><span class="down">↓-19</span></td>
+        </tr>
+        <tr style="background:#fff8e1;">
+          <td>违规相关</td>
+          <td>236</td>
+          <td style="font-weight:700;">205</td>
+          <td><span class="down">↓-31</span></td>
+        </tr>
+        <tr>
+          <td>游戏抱怨</td>
+          <td>136</td>
+          <td style="font-weight:700;color:#c62828;">187</td>
+          <td><span class="up">↑+51</span></td>
+        </tr>
+        <tr style="background:#fff8e1;">
+          <td>账号问题</td>
+          <td>113</td>
+          <td style="font-weight:700;">77</td>
+          <td><span class="down">↓-36</span></td>
+        </tr>
+        <tr>
+          <td>游戏建议</td>
+          <td>119</td>
+          <td style="font-weight:700;">85</td>
+          <td><span class="down">↓-34</span></td>
+        </tr>
+        <tr style="background:#fff8e1;">
+          <td>其他/充值/日常</td>
+          <td>119</td>
+          <td style="font-weight:700;">167</td>
+          <td><span class="up">↑+48</span></td>
+        </tr>
+        <tr class="total-row">
+          <td>合计</td>
+          <td>1,173</td>
+          <td>1,237</td>
+          <td><span class="up">↑+64</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="compare-note" style="background:#f9fbe7;border-radius:6px;padding:8px 12px;font-size:12px;line-height:1.7;margin-top:10px;border:1px solid #dce775;">
+      <strong>📝 对比总结：</strong>异常反馈 <span class="up">↑+85条</span> 最为突出，主因版本事故集中；
+      游戏抱怨 <span class="up">↑+51条</span> 因合区匹配争议；
+      违规相关 <span class="down">↓-31条</span>、账号问题 <span class="down">↓-36条</span> 均有改善。
+    </div>
+  </div>
+
+  <!-- ============ 咨询类型占比（优化后） ============ -->
+  <div class="pie-section" id="pie">
+    <div class="pie-card">
+      <h3>🍰 26年4月 咨询类型占比分布</h3>
+      <div class="pie-inner">
+        <div class="pie-canvas-wrap"><canvas id="pie4Chart"></canvas></div>
+        <div class="pie-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#ef5350;"></div><span class="leg-label">异常反馈</span><span class="leg-count">285</span><span class="leg-pct">（23.0%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#42a5f5;"></div><span class="leg-label">游戏咨询</span><span class="leg-count">231</span><span class="leg-pct">（18.7%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ff7043;"></div><span class="leg-label">违规相关</span><span class="leg-count">205</span><span class="leg-pct">（16.6%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ab47bc;"></div><span class="leg-label">游戏抱怨</span><span class="leg-count">187</span><span class="leg-pct">（15.1%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#66bb6a;"></div><span class="leg-label">游戏建议</span><span class="leg-count">85</span><span class="leg-pct">（6.9%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#26c6da;"></div><span class="leg-label">账号问题</span><span class="leg-count">77</span><span class="leg-pct">（6.2%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ffca28;"></div><span class="leg-label">其他问题</span><span class="leg-count">89</span><span class="leg-pct">（7.2%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#8d6e63;"></div><span class="leg-label">充值/日常等</span><span class="leg-count">78</span><span class="leg-pct">（6.3%）</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pie-card">
+      <h3>🍰 26年3月 咨询类型占比（对比）</h3>
+      <div class="pie-inner">
+        <div class="pie-canvas-wrap"><canvas id="pie3Chart"></canvas></div>
+        <div class="pie-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#ef9a9a;"></div><span class="leg-label">异常反馈</span><span class="leg-count">200</span><span class="leg-pct">（17.1%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#90caf9;"></div><span class="leg-label">游戏咨询</span><span class="leg-count">250</span><span class="leg-pct">（21.3%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ffab91;"></div><span class="leg-label">违规相关</span><span class="leg-count">236</span><span class="leg-pct">（20.1%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ce93d8;"></div><span class="leg-label">游戏抱怨</span><span class="leg-count">136</span><span class="leg-pct">（11.6%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#a5d6a7;"></div><span class="leg-label">游戏建议</span><span class="leg-count">119</span><span class="leg-pct">（10.1%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#80deea;"></div><span class="leg-label">账号问题</span><span class="leg-count">113</span><span class="leg-pct">（9.6%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ffe082;"></div><span class="leg-label">其他问题</span><span class="leg-count">60</span><span class="leg-pct">（5.1%）</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#bcaaa4;"></div><span class="leg-label">充值/日常等</span><span class="leg-count">59</span><span class="leg-pct">（5.0%）</span></div>
+        </div>
+      </div>
+      <div class="pie-note">
+        <strong>🔄 3→4月变化：</strong>异常反馈 <span class="up">↑+5.9%</span>、游戏抱怨 <span class="up">↑+3.5%</span>；
+        游戏咨询 <span class="down">↓-2.6%</span>、违规相关 <span class="down">↓-3.5%</span>、账号问题 <span class="down">↓-3.4%</span>。
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 高频反馈词（左右两列：左1-5，右6-10） ============ -->
+  <div class="top10-section" id="top10">
+    <h3>🏆 26年4月 玩家高频反馈词语 TOP10</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <!-- 左列：排名 1-5 -->
+      <div>
+        <div class="top10-item">
+          <span class="top10-rank top3">1</span>
+          <span class="top10-word">匹配/合区</span>
+          <div class="top10-bar-wrap"><div class="top10-bar" style="width:100%;background:linear-gradient(90deg,#ef5350,#ff7043);"></div></div>
+          <span class="top10-count">52条</span>
+        </div>
+        <div class="top10-item">
+          <span class="top10-rank top3">2</span>
+          <span class="top10-word">联盟争霸</span>
+          <div class="top10-bar-wrap"><div class="top10-bar" style="width:85%;background:linear-gradient(90deg,#e53935,#ef5350);"></div></div>
+          <span class="top10-count">44条</span>
+        </div>
+        <div class="top10-item">
+          <span class="top10-rank top3">3</span>
+          <span class="top10-word">祈灵祭典</span>
+          <div class="top10-bar-wrap"><div class="top10-bar" style="width:81%;background:linear-gradient(90deg,#d32f2f,#e53935);"></div></div>
+          <span class="top10-count">42条</span>
+        </div>
+        <div class="top10-item">
+          <span class="top10-rank">4</span>
+          <span class="top10-word">登陆异常</span>
+          <div class="top10-bar-wrap"><div class="top10-bar" style="width:73%;background:linear-gradient(90deg,#1565c0,#1976d2);"></div></div>
+          <span class="top10-count">38条</span>
+        </div>
+        <div class="top10-item">
+          <span class="top10-rank">5</span>
+          <span class="top10-word">战力差距</span>
+          <div class="top10-bar-wrap"><div class="top10-bar" style="width:62%;background:linear-gradient(90deg,#c62828,#d32f2f);"></div></div>
+          <span class="top10-count">32条</span>
+        </div>
+      </div>
+      <!-- 右列：排名 6-10 -->
+      <div>
+        <div class="top10-item">
+          <span class="top10-rank">6</span>
+          <span class="top10-word">举报外挂</span>
+          <div class="top10-bar-wrap"><div class="top10-bar" style="width:58%;background:linear-gradient(90deg,#2e7d32,#388e3c);"></div></div>
+          <span class="top10-count">30条</span>
+        </div>
+        <div class="top10-item">
+          <span class="top10-rank">7</span>
+          <span class="top10-word">黄金王帐</span>
+          <div class="top10-bar-wrap"><div class="top10-bar" style="width:54%;background:linear-gradient(90deg,#e65100,#f57c00);"></div></div>
+          <span class="top10-count">28条</span>
+        </div>
+        <div class="top10-item">
+          <span class="top10-rank">8</span>
+          <span class="top10-word">楼兰探秘</span>
+          <div class="top10-bar-wrap"><div class="top10-bar" style="width:50%;background:linear-gradient(90deg,#6a1b9a,#7b1fa2);"></div></div>
+          <span class="top10-count">26条</span>
+        </div>
+        <div class="top10-item">
+          <span class="top10-rank">9</span>
+          <span class="top10-word">公平/霸凌</span>
+          <div class="top10-bar-wrap"><div class="top10-bar" style="width:46%;background:linear-gradient(90deg,#1976d2,#1e88e5);"></div></div>
+          <span class="top10-count">24条</span>
+        </div>
+        <div class="top10-item">
+          <span class="top10-rank">10</span>
+          <span class="top10-word">BUG/异常</span>
+          <div class="top10-bar-wrap"><div class="top10-bar" style="width:42%;background:linear-gradient(90deg,#1b5e20,#2e7d32);"></div></div>
+          <span class="top10-count">22条</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 分层玩家反馈汇总 ============ -->
+  <div class="layer-row" id="layer">
+    <div class="layer-card">
+      <span class="layer-title-tag blue">👤 V7以下 普通玩家反馈汇总</span>
+      <div class="layer-meta">本月七鱼咨询量：<strong>889条</strong> &nbsp;|&nbsp; 反馈汇总有效条目：<strong>63条</strong></div>
+      <div class="feedback-tag">
+        <span class="tag-label">🗺️ 区服匹配公平性问题</span>
+        <span class="tag-count">25+</span>
+      </div>
+      <div class="feedback-tag">
+        <span class="tag-label">⚙️ 系统功能与UI体验优化</span>
+        <span class="tag-count">10+</span>
+      </div>
+      <div class="feedback-tag">
+        <span class="tag-label">🎁 道具资源获取路径</span>
+        <span class="tag-count">5+</span>
+      </div>
+      <div class="feedback-tag">
+        <span class="tag-label">🎭 活动规则改进建议</span>
+        <span class="tag-count">5+</span>
+      </div>
+      <div class="feedback-tag">
+        <span class="tag-label">📣 运营策略与内容安排</span>
+        <span class="tag-count">5+</span>
+      </div>
+      <div class="layer-note">
+        <strong>核心诉求：</strong>匹配公平、功能完善、获取路径可及性是V7以下玩家关注的重点，
+        尤其对"被强联盟碾压"和"道具太难获得"表达强烈不满。
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <span class="layer-title-tag purple">💎 V7及以上 大R玩家反馈汇总</span>
+      <div class="layer-meta">本月七鱼咨询量：<strong>348条</strong> &nbsp;|&nbsp; 反馈汇总有效条目：<strong>70条</strong></div>
+      <div class="feedback-tag">
+        <span class="tag-label">🗺️ 匹配机制不合理（老服碾压）</span>
+        <span class="tag-count purple">25+</span>
+      </div>
+      <div class="feedback-tag">
+        <span class="tag-label">🎭 活动规则与参与体验</span>
+        <span class="tag-count purple">15+</span>
+      </div>
+      <div class="feedback-tag">
+        <span class="tag-label">🏙️ 区服生态与合区方案</span>
+        <span class="tag-count purple">10+</span>
+      </div>
+      <div class="feedback-tag">
+        <span class="tag-label">📣 运营活动安排（楼兰、卢德米拉等）</span>
+        <span class="tag-count purple">5+</span>
+      </div>
+      <div class="feedback-tag">
+        <span class="tag-label">🎁 道具与角色获取（选拔令、招募令）</span>
+        <span class="tag-count purple">5+</span>
+      </div>
+      <div class="layer-note purple-note">
+        <strong>核心诉求：</strong>大R玩家对活动体验、生态健康的敏感度更高，关注合区是否公平、
+        顶级联盟碾压中小盟的现象，以及氪金回报比（招募令获取难度）。
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 分层玩家深度分析 ============ -->
+  <div class="deep-analysis-row">
+    <div class="deep-card">
+      <div class="deep-card-header blue">👤 V7以下（普通玩家）分层深度分析</div>
+      <div class="analysis-sub">
+        <span class="analysis-sub-title sub-red">🔥 核心痛点</span>
+        <ul>
+          <li><strong>跨服活动匹配严重失衡</strong>：普通玩家联盟战力1-5B，频繁被10B+老服碾压，根本无法参与竞争，直言"被霸凌"、"想退游"。</li>
+          <li><strong>养成资源严重不足</strong>：将印、选拔令、勇士升星材料获取难度高，免费向玩家成长瓶颈明显。</li>
+        </ul>
+      </div>
+      <div class="analysis-sub">
+        <span class="analysis-sub-title sub-blue">💬 高频吐槽点</span>
+        <ul>
+          <li>联盟争霸每次匹配到远超自身实力的对手，"打一场必输，越来越无趣"；</li>
+          <li>系统功能细节不友好：联盟探险任务排序、国库合成操作繁琐、马粮上限过低等；</li>
+          <li>诈马宴抢座被霸凌，希望增加举报/屏蔽机制；</li>
+          <li>部分活动奖励对普通玩家性价比低（如<strong>联盟伟业</strong>、血色战役体力恢复设计）。</li>
+        </ul>
+      </div>
+      <div class="analysis-sub">
+        <span class="analysis-sub-title sub-green">✅ 认可点</span>
+        <ul>
+          <li>冰原争霸的随机匹配机制相对受好评，希望推广至更多活动；</li>
+          <li>祈灵祭典内容丰富，玩家参与热情高（尽管BUG较多）；</li>
+          <li>霸主增益机制有正面效果，部分玩家认可。</li>
+        </ul>
+      </div>
+      <div class="quote-box">
+        "每次联盟战都跟实力远超我们的对手匹配到一起，我的联盟最高就6B，对方全是10B+，根本打不赢，大家越来越没动力……"
+      </div>
+    </div>
+
+    <div class="deep-card">
+      <div class="deep-card-header purple">💎 V7及以上（大R玩家）分层深度分析</div>
+      <div class="analysis-sub">
+        <span class="analysis-sub-title sub-red">🔥 核心痛点</span>
+        <ul>
+          <li><strong>生态健康与匹配体验</strong>：大R玩家在意公平竞争生态，跨服合区将实力悬殊的服务器匹配到一起，顶级联盟持续碾压，导致活跃度下滑、玩家流失。</li>
+          <li><strong>活动体验与参与深度</strong>：祈灵祭典BUG引发损失（邮件未收到奖励），先祖试炼机器人太强无法遇到真人，诈马宴被霸凌踢人。</li>
+        </ul>
+      </div>
+      <div class="analysis-sub">
+        <span class="analysis-sub-title sub-purple">💬 高频吐槽点</span>
+        <ul>
+          <li>楼兰探秘活动被轮换，导致肯·阿诺克道具获取通路被切断，多个大R明确表达"专门为这个活动消费的，现在没了很失望"；</li>
+          <li>冲榜奖励仅投放女神令碎片，培养四獒将方向的大R玩家无法受益，希望改为通用碎片；</li>
+          <li>先祖试炼排行榜奖励安排魂石随机箱而非自选箱，浪费大R付费价值；</li>
+          <li>薇尔玛招募令等高价值道具获取门槛过高，仅付费玩家可及。</li>
+        </ul>
+      </div>
+      <div class="analysis-sub">
+        <span class="analysis-sub-title sub-green">✅ 认可点</span>
+        <ul>
+          <li>祈灵祭典活动框架受认可，大R愿意积极投入；</li>
+          <li>联盟伟业等PVE活动有较好接受度；</li>
+          <li>对改善匹配机制（如HB按战区匹配）的近期调整持肯定态度。</li>
+        </ul>
+      </div>
+      <div class="quote-box purple">
+        "楼兰探秘被轮换了，目前正在进行联盟贡献冲榜，楼兰里可以获得联盟礼盒，没有了。希望楼兰变为固定活动，不要轮换……"
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 总结模块（宽松排版 + P1/P2标签） ============ -->
+  <div class="summary-section" id="summary">
+    <div class="section-title">📌 26年4月 总结与趋势</div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-item-header red">🔴 核心问题</div>
+        <ul class="summary-item-body">
+          <li>
+            <span class="priority-badge p1">P1</span>
+            <div><strong>合区匹配不公平</strong>：跨服活动匹配时战力差距太大，中小联盟一直被强盟碾压，这是本月最需要解决的问题</div>
+          </li>
+          <li>
+            <span class="priority-badge p1">P1</span>
+            <div><strong>活动BUG和玩家损失</strong>：祈灵祭典出现了多个BUG导致玩家损失，后面如果再出现类似可能造成损失的BUG，建议考虑给玩家一些补偿</div>
+          </li>
+          <li>
+            <span class="priority-badge p2">P2</span>
+            <div><strong>活动轮换影响养成路线</strong>：楼兰探秘被轮换掉，很多玩家没法获得肯·阿诺克的道具，影响了之前的培养计划，大R玩家意见尤其大</div>
+          </li>
+        </ul>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-header orange">📈 变化趋势</div>
+        <ul class="summary-item-body">
+          <li>
+            <span class="trend-dot"></span>
+            <div>异常反馈 <strong>↑比上个月多了很多</strong>，主要是祈灵祭典的BUG和登陆异常，后面版本上线前需要多测试</div>
+          </li>
+          <li>
+            <span class="trend-dot"></span>
+            <div>游戏抱怨 <strong>↑明显变多</strong>，最主要还是合区后匹配不公平，这个问题这个月一直都有玩家在反映</div>
+          </li>
+          <li>
+            <span class="trend-dot"></span>
+            <div>违规举报 <strong>↓比上个月少了</strong>，打击效果有一定显现，但外挂问题还是存在</div>
+          </li>
+          <li>
+            <span class="trend-dot"></span>
+            <div>大R玩家（V7+）对活动安排很敏感，楼兰探秘被轮换后很多人在抱怨</div>
+          </li>
+          <li>
+            <span class="trend-dot"></span>
+            <div>普通玩家对公平竞技的需求越来越强烈，如果再不调整匹配机制，可能会有一部分玩家流失</div>
+          </li>
+        </ul>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-header green">✅ 处理建议</div>
+        <ul class="summary-item-body">
+          <li>
+            <span class="priority-badge 优先">优先</span>
+            <div>调整合区匹配方式，让战力相近的联盟能匹配到一起</div>
+          </li>
+          <li>
+            <span class="priority-badge 优先">优先</span>
+            <div>持续跟进BUG处理进度，如果BUG给玩家造成了损失，建议后续考虑给予补偿</div>
+          </li>
+          <li>
+            <span class="priority-badge 重要">重要</span>
+            <div>楼兰探秘活动尽量固定下来不要轮换，或者多开一些能获得肯·阿诺克道具的活动</div>
+          </li>
+          <li>
+            <span class="priority-badge 重要">重要</span>
+            <div>冲榜奖励改成通用碎片，让不同培养方向的玩家都能受益</div>
+          </li>
+          <li>
+            <span class="priority-badge 建议">建议</span>
+            <div>继续加强外挂打击，最好能让玩家看到处理结果</div>
+          </li>
+          <li>
+            <span class="priority-badge 建议">建议</span>
+            <div>优化一些系统功能细节（比如马粮上限、联盟探险任务排序等）</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    GOK-亚洲 | 26年4月用户信息反馈报告 | 数据来源：七鱼+KKT客服系统 | 制作日期：2026.05
+  </div>
+
+</div><!-- /.page-wrapper -->
+
+<script>
+  // 平滑滚动导航
+  document.querySelectorAll('.page-nav a').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      var href = a.getAttribute('href').replace('#','');
+      var target = document.getElementById(href);
+      if (target) {
+        var top = target.getBoundingClientRect().top + window.scrollY - 20;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // 滚动高亮当前标签
+  window.addEventListener('scroll', function() {
+    var sections = document.querySelectorAll('[id]');
+    var links = document.querySelectorAll('.page-nav a');
+    var current = '';
+    sections.forEach(function(s) {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    links.forEach(function(l) {
+      l.classList.remove('active');
+      if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+    });
+  });
+
+  // ======== Chart.js 配置 ========
+  Chart.defaults.font.family = "'Microsoft YaHei', Arial, sans-serif";
+  Chart.defaults.font.size = 11;
+
+  // 1. 近6月趋势柱状图
+  new Chart(document.getElementById('trendChart'), {
+    type: 'bar',
+    data: {
+      labels: ['25/11月', '25/12月', '26/1月', '26/2月', '26/3月', '26/4月'],
+      datasets: [{
+        label: '月咨询量',
+        data: [1158, 1347, 1147, 925, 1173, 1237],
+        backgroundColor: ['#90caf9','#90caf9','#90caf9','#90caf9','#90caf9','#ef5350'],
+        borderColor: ['#1976d2','#1976d2','#1976d2','#1976d2','#1976d2','#c62828'],
+        borderWidth: 1.5,
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => `${ctx.raw}条` } }
+      },
+      scales: {
+        y: {
+          beginAtZero: false, min: 800,
+          grid: { color: '#f0f0f0' },
+          ticks: { font: { size: 10 } }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 10 } }
+        }
+      }
+    }
+  });
+
+  // 2. VIP分层柱状图（V0-V12+，蓝色普通/V7+紫色）
+  new Chart(document.getElementById('vipChart'), {
+    type: 'bar',
+    data: {
+      labels: ['V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12+'],
+      datasets: [{
+        label: '咨询量',
+        data: [260, 97, 63, 126, 50, 183, 110, 74, 75, 93, 67, 13, 26],
+        backgroundColor: ['#42a5f5','#42a5f5','#42a5f5','#42a5f5','#42a5f5','#42a5f5','#42a5f5',
+                          '#ab47bc','#ab47bc','#ab47bc','#ab47bc','#ab47bc','#ab47bc'],
+        borderRadius: 3,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => `${ctx.raw}条` } }
+      },
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { font: { size: 10 } } },
+        x: { grid: { display: false }, ticks: { font: { size: 9 } } }
+      }
+    }
+  });
+
+  // 3. 日回复量折线
+  const dailyData = [29,27,56,61,42,61,48,51,50,42,29,30,35,43,34,24,34,40,48,74,55,31,30,25,24,51,44,36,48,35];
+  const avgVal = Math.round(dailyData.reduce((a,b)=>a+b,0)/dailyData.length);
+  const labels30 = Array.from({length:30},(_,i)=>`4/${i+1}`);
+
+  new Chart(document.getElementById('dailyChart'), {
+    type: 'line',
+    data: {
+      labels: labels30,
+      datasets: [
+        {
+          label: '日咨询量',
+          data: dailyData,
+          borderColor: '#26a69a',
+          backgroundColor: 'rgba(38,166,154,0.12)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 2,
+          pointHoverRadius: 5,
+          borderWidth: 2,
+        },
+        {
+          label: `日均(${avgVal}条)`,
+          data: Array(30).fill(avgVal),
+          borderColor: '#f5a623',
+          borderDash: [5,3],
+          borderWidth: 1.5,
+          pointRadius: 0,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 10 }, boxWidth: 12 } },
+        tooltip: { callbacks: { label: ctx => `${ctx.raw}条` } }
+      },
+      scales: {
+        y: { beginAtZero: false, min: 0, grid: { color: '#f0f0f0' }, ticks: { font: { size: 10 } } },
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 9 }, maxTicksLimit: 10 }
+        }
+      }
+    }
+  });
+
+  // 4. 4月饼图
+  new Chart(document.getElementById('pie4Chart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['异常反馈','游戏咨询','违规相关','游戏抱怨','游戏建议','账号问题','其他问题','充值/日常等'],
+      datasets: [{
+        data: [285, 231, 205, 187, 85, 77, 89, 78],
+        backgroundColor: ['#ef5350','#42a5f5','#ff7043','#ab47bc','#66bb6a','#26c6da','#ffca28','#8d6e63'],
+        borderWidth: 2, borderColor: '#fff',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      cutout: '55%',
+    }
+  });
+
+  // 5. 3月饼图
+  new Chart(document.getElementById('pie3Chart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['异常反馈','游戏咨询','违规相关','游戏抱怨','游戏建议','账号问题','其他问题','充值/日常等'],
+      datasets: [{
+        data: [200, 250, 236, 136, 119, 113, 60, 59],
+        backgroundColor: ['#ef9a9a','#90caf9','#ffab91','#ce93d8','#a5d6a7','#80deea','#ffe082','#bcaaa4'],
+        borderWidth: 2, borderColor: '#fff',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      cutout: '55%',
+    }
+  });
+</script>
+</body>
+</html>
